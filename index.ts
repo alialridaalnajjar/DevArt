@@ -1,12 +1,20 @@
-import sequelize from "./db";
+import express from "express";
+import cors from "cors";
+import registerRoute from "./routes/Register.route";
 
-async function connectToNeon() {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection successful");
-  } catch (error) {
-    console.error("Unable to connect :", error);
-  }
-}
+const corsOptions = {
+  origin: "http://localhost:5173",
+};
 
-connectToNeon();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
+
+app.use("/api/auth", registerRoute);
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

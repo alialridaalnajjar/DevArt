@@ -10,19 +10,21 @@ export class User implements IUser {
   profile_photo_url?: string | null;
   DOB?: Date | null;
   location?: string | null;
+  first_name: string;
+  last_name: string;
 
   constructor(
-    user_id: number,
     username: string,
     email: string,
     password_hash: string,
     role: RoleType,
     created_at: Date,
+    first_name: string,
+    last_name: string,
     profile_photo_url?: string | null,
     DOB?: Date | null,
     location?: string | null
   ) {
-    this.user_id = user_id;
     this.username = username;
     this.email = email;
     this.password_hash = password_hash;
@@ -31,5 +33,7 @@ export class User implements IUser {
     this.profile_photo_url = profile_photo_url;
     this.DOB = DOB;
     this.location = location;
+    this.first_name = first_name;
+    this.last_name = last_name;
   }
 }

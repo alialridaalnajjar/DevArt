@@ -1,10 +1,9 @@
 export enum RoleType {
-  USER = "USER",
-  ADMIN = "ADMIN",
+  USER = "student",
+  ADMIN = "admin",
 }
 
 export interface IUser {
-  user_id: number;
   username: string;
   email: string;
   password_hash: string;
@@ -13,4 +12,6 @@ export interface IUser {
   profile_photo_url?: string | null;
   DOB?: Date | null;
   location?: string | null;
+  first_name: string ;
+  last_name: string ;
 }
