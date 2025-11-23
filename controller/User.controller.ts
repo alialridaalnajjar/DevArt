@@ -84,18 +84,29 @@ export class UserController {
   static async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-      const users = await sequelize.query(
-        "Select user_id, username, email ,password_hash, role from users Where email = $1",
+
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ message: "Email and password are required" });
+      }
+
+      const [users]: any = await sequelize.query(
+        "SELECT user_id, username, email, password_hash, role FROM users WHERE email = $1",
         { bind: [email] }
       );
-      if (users[0].length === 0) {
+
+      if (users.length === 0) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
-      const user: any = users[0];
+
+      const user = users[0];
+
       const isPasswordValid = await bcrypt.compare(
         password,
         user.password_hash
       );
+
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
