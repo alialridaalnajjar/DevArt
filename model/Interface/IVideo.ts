@@ -6,4 +6,5 @@ export interface IVideo {
   manifest_url?: string | null;
   duration_seconds: number;
   genre: string;
+  author?: string; 
 }
