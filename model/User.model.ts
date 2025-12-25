@@ -12,6 +12,7 @@ export class User implements IUser {
   location?: string | null;
   first_name: string;
   last_name: string;
+  isNew: boolean 
 
   constructor(
     username: string,
@@ -21,9 +22,10 @@ export class User implements IUser {
     created_at: Date,
     first_name: string,
     last_name: string,
+    isNew: boolean,
     profile_photo_url?: string | null,
     DOB?: Date | null,
-    location?: string | null
+    location?: string | null,
   ) {
     this.username = username;
     this.email = email;
@@ -35,5 +37,6 @@ export class User implements IUser {
     this.location = location;
     this.first_name = first_name;
     this.last_name = last_name;
+    this.isNew = isNew;
   }
 }
