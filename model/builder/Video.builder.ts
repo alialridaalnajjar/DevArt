@@ -2,19 +2,21 @@ import { Video } from "../Video.model";
 
 export class VideoBuilder {
   private video_id?: number;
-  private module_id!: number;
+  private module!: string;
   private title!: string;
   private video_url!: string;
   private manifest_url?: string | null;
   private duration_seconds!: number;
-
+  private genre!: string;
+  private author?: string;
+private language?: string;
   setVideoId(id: number): this {
     this.video_id = id;
     return this;
   }
 
-  setModuleId(moduleId: number): this {
-    this.module_id = moduleId;
+  setModule(module: string): this {
+    this.module = module;
     return this;
   }
 
@@ -38,18 +40,35 @@ export class VideoBuilder {
     return this;
   }
 
+  setGenre(genre: string): this {
+    this.genre = genre;
+    return this;
+  }
+  setAuthor(author: string): this {
+    this.author = author;
+    return this;
+  }
+
+  setLanguage(language: string): this {
+    this.language = language;
+    return this;
+  }
+
   build(): Video {
-    if (!this.module_id || !this.title || !this.video_url || !this.duration_seconds) {
+    if (!this.module || !this.title || !this.video_url || !this.duration_seconds || !this.genre) {
       throw new Error("missing required fields!");
     }
 
     return new Video(
       this.video_id ?? 0,
-      this.module_id,
+      this.module,
       this.title,
       this.video_url,
       this.duration_seconds,
-      this.manifest_url
+      this.manifest_url,
+      this.genre,
+      this.author,
+      this.language
     );
   }
 }

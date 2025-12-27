@@ -3,4 +3,4 @@ export interface IActivity {
   dod: Date;
   title: string;
   user_id: number;
-}
+} 

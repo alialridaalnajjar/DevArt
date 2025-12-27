@@ -12,6 +12,7 @@ export class UserBuilder {
   private location?: string | null;
   private first_name!: string;
   private last_name!: string;
+  private isNew!: boolean;
   setUsername(username: string): this {
     this.username = username;
     return this;
@@ -59,6 +60,10 @@ export class UserBuilder {
     this.last_name = last_name;
     return this;
   }
+  setIsNew(isNew: boolean): this {
+    this.isNew = isNew;
+    return this;
+  }
 
   build(): User {
     if (!this.username || !this.email || !this.password_hash || !this.role) {
@@ -73,6 +78,7 @@ export class UserBuilder {
       this.created_at || new Date(),
       this.first_name,
       this.last_name,
+      this.isNew,
       this.profile_photo_url,
       this.DOB,
       this.location

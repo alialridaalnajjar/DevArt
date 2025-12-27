@@ -14,4 +14,5 @@ export interface IUser {
   location?: string | null;
   first_name: string ;
   last_name: string ;
+  isNew: boolean;
 }
