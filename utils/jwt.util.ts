@@ -20,7 +20,7 @@ export class JWTUtil {
 
     if (shouldRemember === true) {
       return jwt.sign({ userId, email, role, username }, JWT_SECRET, {
-        expiresIn: "7d",
+        expiresIn: "2mo",
       });
     }
     return jwt.sign({ userId, email, role, username }, JWT_SECRET, {
