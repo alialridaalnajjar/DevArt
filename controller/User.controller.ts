@@ -113,4 +113,37 @@ export class UserController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
+
+  static async editUserDataById(req: Request, res: Response) {
+    try {
+      const userId = parseInt(req.params.userId, 10);
+      const { username, first_name, last_name, email, location, dob } =
+        req.body;
+
+      const [result]: any = await sequelize.query(
+        `UPDATE users SET
+        username = $1,
+        first_name = $2,
+        last_name = $3,
+        email = $4,
+        location = $5,
+        dob = $6
+      WHERE user_id = $7
+      RETURNING *`,
+        {
+          bind: [username, first_name, last_name, email, location, dob, userId],
+        }
+      );
+      if (result.length === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({
+        message: "User data updated successfully",
+        user: result[0],
+      });
+    } catch (error) {
+      console.error("Edit user data error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 }
