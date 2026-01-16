@@ -79,4 +79,38 @@ export class UserController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
+
+  static async getAllUsersData(req: Request, res: Response) {
+    try {
+      const [result] = await sequelize.query(
+        `SELECT user_id, username, email, created_at, dob, first_name, last_name, location FROM users`
+      );
+      res.status(200).json({
+        message: "Data Sent",
+        users: result,
+      });
+    } catch (error) {
+      console.error("fetch users error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  static async deleteUser(req: Request, res: Response) {
+    try {
+      const userId = parseInt(req.params.userId, 10);
+      const [result]: any = await sequelize.query(
+        "DELETE FROM users WHERE user_id = $1 RETURNING *",
+        { bind: [userId] }
+      );
+      if (result.length === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({
+        message: "User deleted successfully",
+      });
+    } catch (error) {
+      console.error("Delete user error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 }
