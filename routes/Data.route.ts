@@ -9,6 +9,7 @@ router.put("/admin/edit/:userId", UserController.editUserDataById);
 
 // User routes--
 router.get("/:userId", UserController.getProfile);
-router.put("/:userId/profile", UserController.editProfile);
-
+router.get("/skills/:userId", UserController.getSkills);
+router.put("/edit/:userId", UserController.editProfile);
+router.put("/skills/edit/:userId", UserController.addSkills);
 export default router;

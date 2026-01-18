@@ -146,4 +146,55 @@ export class UserController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
+  static async addSkills(req: Request, res: Response) {
+    try {
+      const userId = parseInt(req.params.userId, 10);
+      const { skills } = req.body; 
+
+      if (!Array.isArray(skills)) {
+        return res.status(400).json({ message: "Skills must be an array" });
+      }
+
+      const [result]: any = await sequelize.query(
+        `UPDATE users SET skills = $1 WHERE user_id = $2 RETURNING *`,
+        { bind: [skills, userId] }
+      );
+
+      if (result.length === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(200).json({
+        message: "Skills updated successfully",
+        user: result[0],
+      });
+    } catch (error) {
+      console.error("Add skills error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+  static async getSkills(req: Request, res: Response) {
+    try {
+      const userId = parseInt(req.params.userId, 10);
+      const [users]: any = await sequelize.query(
+        "SELECT skills FROM users WHERE user_id = $1",
+        { bind: [userId] }
+      );
+
+      if (users.length === 0) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      const user = users[0];
+      res.status(200).json({
+        message: "Skills retrieved successfully",
+
+        skills: user.skills,
+      });
+    } catch (error) {
+      console.error("Get skills error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  
 }
