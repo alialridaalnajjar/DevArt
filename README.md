@@ -129,6 +129,16 @@ Codeleb/
 ### New Content
 - `GET /api/isNew` - Check for new content
 
+### Quiz
+- `GET /api/quiz/genres` - List quiz genres
+- `GET /api/quiz/genres/:genreId` - Get a single genre
+- `GET /api/quiz/genres/:genreId/questions` - Get randomized questions with options (no answers)
+- `POST /api/quiz/attempts/start` - Start an attempt (body: `user_id`, `genre_id`)
+- `POST /api/quiz/attempts/:attemptId/answer` - Save an answer (body: `question_id`, `option_id`)
+- `POST /api/quiz/attempts/:attemptId/complete` - Finalize attempt and score it
+- `GET /api/quiz/attempts/user/:userId` - List attempts for a user
+- `GET /api/quiz/attempts/:attemptId` - Get a single attempt
+
 ## 🔒 Security
 
 - JWT-based authentication
