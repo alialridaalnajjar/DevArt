@@ -6,6 +6,7 @@ import activityRoute from "../routes/Activity.route";
 import videoRoute from "../routes/Video.route";
 import docsRoute from "../routes/Docs.route";
 import isNewRoute from "../routes/IsNew.route";
+import quizRoute from "../routes/Quiz.route";
 
 const corsOptions = {
   origin: ["https://devart-learn.vercel.app"],
@@ -26,6 +27,7 @@ app.use("/api/activity", activityRoute);
 app.use("/api/video", videoRoute);
 app.use("/api/docs", docsRoute);
 app.use("/api/isNew", isNewRoute);
+app.use("/api/quiz", quizRoute);
 
 
 export default app;
