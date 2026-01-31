@@ -1,4 +1,4 @@
-# Codeleb
+# DevArt
 
 A backend API for a learning management system built with Node.js, Express, TypeScript, and PostgreSQL.
 
